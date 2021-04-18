@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import './App.css'
-import { ChakraProvider, extendTheme, Flex, Heading, Box, Text } from '@chakra-ui/react'
+import { ChakraProvider, extendTheme, Flex, Heading, Box } from '@chakra-ui/react'
 import DefaultLayout from './components/layouts/Default'
-import LineChart from './components/LineChart'
 import theme from './theme'
 import request from 'axios'
 import InterestForm from './components/InterestForm'
 import { AppState, InterestState } from './types'
+import Breakdown from './components/Breakdown'
 
 const defaultTheme = extendTheme(theme)
 
@@ -53,29 +53,12 @@ function App() {
                         <Heading size="md" pb="6%">
                             Yearly Breakdown
                         </Heading>
-                        <Flex flexDirection="row" justifyContent="space-between" pb="5%">
-                            <Box>
-                                <Text>Will Give</Text>
-                                <Heading size="sm" pt="5px">{`£${
-                                    appState?.interestState?.totalInvestment || 0.0
-                                }`}</Heading>
-                            </Box>
-                            <Box>
-                                <Text>Will Yield</Text>
-                                <Heading size="sm" pt="5px">{`£${
-                                    appState?.chart?.yAxis[appState.chart.yAxis.length - 1]
-                                }`}</Heading>
-                            </Box>
-                        </Flex>
-                        {appState?.chart?.xAxis && appState.chart.yAxis ? (
-                            <LineChart
-                                title="Savings Over time"
-                                xAxisData={appState.chart.xAxis}
-                                yAxisData={appState.chart.yAxis}
-                                xLabel="Years"
-                                yLabel="Amount"
+                        {appState?.chart && (
+                            <Breakdown
+                                totalInvestment={appState?.interestState?.totalInvestment || 0.0}
+                                chart={appState?.chart}
                             />
-                        ) : null}
+                        )}
                     </Box>
                 </Flex>
             </DefaultLayout>
