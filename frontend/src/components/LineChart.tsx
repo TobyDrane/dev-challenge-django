@@ -26,6 +26,7 @@ const LineChart = ({ xAxisData, yAxisData, title, xLabel, yLabel }: Props) => {
                 {
                     scaleLabel: { display: !!yLabel, labelString: yLabel },
                     gridlines: { display: false },
+                    ticks: { maxTicksLimit: 5 },
                 },
             ],
             xAxes: [
